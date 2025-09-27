@@ -13,6 +13,11 @@ enum Role {
   ADMIN
 }
 
+enum GENDER {
+  MALE
+  FEMALE
+}
+
 model User {
   id String @id @default(cuid())
 
@@ -33,7 +38,7 @@ model Profile {
   userId String @unique
 
   age      Int?
-  gender   String?
+  gender   GENDER?
   heightCm Float? // in cm
   weightKg Float? // in kg
 
