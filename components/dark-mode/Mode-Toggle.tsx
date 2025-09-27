@@ -29,6 +29,7 @@ export function ModeToggle() {
         onCheckedChange={(checked) => {
           setTheme(checked ? "dark" : "light");
         }}
+        className="cursor-pointer"
       />
       <Moon className="h-4 w-4" />
     </div>
