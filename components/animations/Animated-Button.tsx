@@ -22,7 +22,10 @@ const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
     return (
       <motion.button
         ref={ref}
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(
+          "cursor-pointer",
+          buttonVariants({ variant, size, className })
+        )}
         // Define hover and tap animations
         whileHover={{ scale: 1.05, filter: "brightness(1.1)" }}
         whileTap={{ scale: 0.95 }}
