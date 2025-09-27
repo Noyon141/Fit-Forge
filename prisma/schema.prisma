@@ -21,9 +21,10 @@ enum GENDER {
 model User {
   id String @id @default(cuid())
 
-  email String  @unique
-  name  String?
-  role  Role    @default(USER)
+  email    String  @unique
+  name     String?
+  password String? // hashed password
+  role     Role    @default(USER)
 
   profile Profile?
 
