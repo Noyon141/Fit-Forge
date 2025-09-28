@@ -1,12 +1,2 @@
-import "next-auth";
-
-declare module "next-auth" {
-  interface Session {
-    user?: {
-      id: string;
-      email?: string | null;
-      name?: string | null;
-      role?: "USER" | "COACH" | "ADMIN";
-    };
-  }
-}
+// NextAuth types are declared in app/api/auth/[...nextauth]/route.ts
+// to avoid duplicate module augmentation
