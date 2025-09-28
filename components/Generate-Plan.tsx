@@ -1,6 +1,6 @@
 "use client";
 
-import { FitForgePlan, WeekPlan } from "@/types/plan";
+import { AiPlan } from "@/lib/validators/aiPlan";
 import axios from "axios";
 import { useState } from "react";
 import { AnimatedButton } from "./animations/Animated-Button";
@@ -14,19 +14,23 @@ import {
 
 export default function GeneratePlan() {
   const [loading, setLoading] = useState(false);
-  const [plan, setPlan] = useState<FitForgePlan | null>(null);
+  const [plan, setPlan] = useState<AiPlan | null>(null);
   const [open, setOpen] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const generatePlan = async () => {
-    setLoading(true);
-    const res = await axios.post<FitForgePlan>("/api/generate", {
-      goal: "Muscle Gain",
-      equipment: "Dumbbells",
-      time: 5,
-    });
-    setPlan(res.data);
-    setLoading(false);
-    setOpen(true);
+    try {
+      setLoading(true);
+      setError(null);
+      const res = await axios.post("/api/generate");
+      const parsed = res.data.plan as AiPlan;
+      setPlan(parsed);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to generate plan.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -37,7 +41,7 @@ export default function GeneratePlan() {
           className="p-4 py-16 bg-black dark:bg-stone-50 text-stone-50 dark:text-black rounded-2xl hover:bg-gray-800 dark:hover:bg-stone-100 transition-colors"
         >
           {loading ? (
-            <div className="animate-pulse">...</div>
+            <div className="animate-pulse text-4xl font-semibold">...</div>
           ) : (
             <>
               <div className="text-2xl mb-2">🎯</div>
@@ -59,20 +63,10 @@ export default function GeneratePlan() {
             <div className="space-y-6">
               <div className="text-black dark:text-stone-50">
                 <h3 className="text-xl font-bold mb-4">{plan.title}</h3>
-
-                {plan.weeks.map((week: WeekPlan) => (
-                  <div
-                    key={week.id}
-                    className="mb-8 p-4 border-2 border-black dark:border-stone-50 rounded-2xl"
-                  >
-                    <h4 className="text-lg font-bold mb-4">Week {week.week}</h4>
-                    <div className="space-y-4">
-                      <div className="text-sm opacity-70">
-                        Workout plan content will be displayed here
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                <p className="mb-4">{plan.summary}</p>
+                <pre className="whitespace-pre-wrap text-sm">
+                  {JSON.stringify(plan, null, 2)}
+                </pre>
               </div>
             </div>
           ) : (

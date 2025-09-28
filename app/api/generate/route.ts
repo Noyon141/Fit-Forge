@@ -30,7 +30,7 @@ export async function POST(req: Request) {
           { day: "Day 2", workout: "Back + Biceps (pull)" },
           {
             day: "Day 3",
-            workout: "Cardio + Core, Time available: ${time} hrs",
+            workout: `Cardio + Core, Time available: ${timePerWeek} hrs`,
           },
         ],
       })),
