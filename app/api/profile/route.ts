@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
+import { ProfileInputSchema } from "@/lib/validators/profile";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+import z from "zod";
 import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function POST(req: Request) {
@@ -12,6 +14,17 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
+    const parsedBody = ProfileInputSchema.safeParse(body);
+
+    if (!parsedBody.success) {
+      const error = z.treeifyError(parsedBody.error);
+
+      console.error("Profile input validation error:", error);
+      return NextResponse.json(
+        { error: "Invalid profile input", details: error },
+        { status: 400 }
+      );
+    }
 
     const user = await prisma.user.findUnique({
       where: { email: session.user.email },
@@ -21,21 +34,22 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
+    const transformedData = {
+      ...parsedBody.data,
+      gender: parsedBody.data.gender
+        ? (parsedBody.data.gender.toUpperCase() as "MALE" | "FEMALE")
+        : undefined,
+    };
+
     await prisma.profile.upsert({
       where: { userId: user.id },
-      update: body,
-      create: {
-        userId: user.id,
-        ...body,
-      },
+      update: transformedData,
+      create: { userId: user.id, ...transformedData },
     });
 
     console.log("Profile created/updated for user:", user.email);
 
-    return NextResponse.json(
-      { message: "Profile created/updated" },
-      { status: 200 }
-    );
+    return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to create profile" },

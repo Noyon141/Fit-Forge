@@ -5,9 +5,7 @@ export const ProfileInputSchema = z.object({
     (v) => (v === "" ? undefined : Number(v)),
     z.number().int().positive().optional()
   ),
-  gender: z
-    .union([z.literal("male"), z.literal("female"), z.literal("other")])
-    .optional(),
+  gender: z.union([z.literal("male"), z.literal("female")]).optional(),
   heightCm: z.preprocess(
     (v) => (v === "" ? undefined : Number(v)),
     z.number().int().positive().optional()
