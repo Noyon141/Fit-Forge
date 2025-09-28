@@ -1,9 +1,24 @@
+import { prisma } from "@/lib/prisma";
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const { goal, equipment, time } = body;
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.email) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+      include: { profile: true },
+    });
+
+    if (!user?.profile) {
+      return NextResponse.json({ error: "Profile not found" }, { status: 404 });
+    }
+
+    const { goal, equipment, timePerWeek } = user.profile;
 
     //stub response
     const plan = {
@@ -13,9 +28,21 @@ export async function POST(req: Request) {
         workouts: [
           { day: "Day 1", workout: "Chest + Triceps (push)" },
           { day: "Day 2", workout: "Back + Biceps (pull)" },
+          {
+            day: "Day 3",
+            workout: "Cardio + Core, Time available: ${time} hrs",
+          },
         ],
       })),
     };
+
+    await prisma.workoutPlan.create({
+      data: {
+        userId: user.id,
+        title: plan.title,
+        content: plan,
+      },
+    });
 
     return NextResponse.json({ plan }, { status: 200 });
   } catch (error) {
