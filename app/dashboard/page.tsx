@@ -1,9 +1,11 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { AnimatedButton } from "@/components/animations/Animated-Button";
 import { AnimatedCard } from "@/components/animations/Animated-Card";
 import {
   AnimatedFormContainer,
   AnimatedFormItem,
 } from "@/components/animations/Form-Animation";
+import GeneratePlan from "@/components/Generate-Plan";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
@@ -29,7 +31,7 @@ const Dashboard = async () => {
         </AnimatedFormItem>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          <AnimatedFormItem>
+          {/* <AnimatedFormItem>
             <AnimatedCard className="border-2 border-black dark:border-stone-50 p-6">
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-12 h-12 bg-black dark:bg-stone-50 rounded-2xl flex items-center justify-center text-stone-50 dark:text-black text-xl">
@@ -126,7 +128,7 @@ const Dashboard = async () => {
                 </div>
               </div>
             </AnimatedCard>
-          </AnimatedFormItem>
+          </AnimatedFormItem> */}
 
           <AnimatedFormItem>
             <AnimatedCard className="border-2 border-black dark:border-stone-50 p-6">
@@ -134,22 +136,19 @@ const Dashboard = async () => {
                 Quick Actions
               </h2>
               <div className="grid grid-cols-2 gap-4">
-                <button className="p-4 bg-black dark:bg-stone-50 text-stone-50 dark:text-black rounded-2xl hover:bg-gray-800 dark:hover:bg-stone-100 transition-colors">
-                  <div className="text-2xl mb-2">🎯</div>
-                  <p className="font-medium">New Plan</p>
-                </button>
-                <button className="p-4 bg-stone-50 dark:bg-black border-2 border-black dark:border-stone-50 text-black dark:text-stone-50 rounded-2xl hover:bg-stone-100 dark:hover:bg-gray-800 transition-colors">
+                <GeneratePlan />
+                <AnimatedButton className="p-4 py-16 bg-stone-50 dark:bg-black border-2 border-black dark:border-stone-50 text-black dark:text-stone-50 rounded-2xl hover:bg-stone-100 dark:hover:bg-gray-800 transition-colors">
                   <div className="text-2xl mb-2">📊</div>
                   <p className="font-medium">Progress</p>
-                </button>
-                <button className="p-4 bg-stone-50 dark:bg-black border-2 border-black dark:border-stone-50 text-black dark:text-stone-50 rounded-2xl hover:bg-stone-100 dark:hover:bg-gray-800 transition-colors">
+                </AnimatedButton>
+                <AnimatedButton className="p-4 py-16 bg-stone-50 dark:bg-black border-2 border-black dark:border-stone-50 text-black dark:text-stone-50 rounded-2xl hover:bg-stone-100 dark:hover:bg-gray-800 transition-colors">
                   <div className="text-2xl mb-2">⚙️</div>
                   <p className="font-medium">Settings</p>
-                </button>
-                <button className="p-4 bg-stone-50 dark:bg-black border-2 border-black dark:border-stone-50 text-black dark:text-stone-50 rounded-2xl hover:bg-stone-100 dark:hover:bg-gray-800 transition-colors">
+                </AnimatedButton>
+                <AnimatedButton className="p-4 py-16 bg-stone-50 dark:bg-black border-2 border-black dark:border-stone-50 text-black dark:text-stone-50 rounded-2xl hover:bg-stone-100 dark:hover:bg-gray-800 transition-colors">
                   <div className="text-2xl mb-2">👤</div>
                   <p className="font-medium">Profile</p>
-                </button>
+                </AnimatedButton>
               </div>
             </AnimatedCard>
           </AnimatedFormItem>
