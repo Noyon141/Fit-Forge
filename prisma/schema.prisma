@@ -13,10 +13,6 @@ enum Role {
   ADMIN
 }
 
-enum GENDER {
-  MALE
-  FEMALE
-}
 
 model User {
   id String @id @default(cuid())
@@ -29,63 +25,4 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  profile       Profile?
-  workoutPlans  WorkoutPlan[]
-  subscriptions Subscription[]
-  progress      ProgressEntry[]
-}
-
-model Profile {
-  id     String @id @default(cuid())
-  userId String @unique
-
-  age      Int?
-  gender   GENDER?
-  heightCm Float? // in cm
-  weightKg Float? // in kg
-
-  goal            String?
-  experienceLevel String?
-  timePerWeek     Int?
-  equipment       String?
-
-  user User @relation(fields: [userId], references: [id])
-}
-
-model WorkoutPlan {
-  id     String @id @default(cuid())
-  userId String
-
-  title   String
-  content Json
-
-  createdAt DateTime  @default(now())
-  expiresAt DateTime?
-
-  user User @relation(fields: [userId], references: [id])
-}
-
-model Subscription {
-  id               String   @id @default(cuid())
-  userId           String
-  stripeCustomer   String?
-  stripeSubId      String?
-  status           String
-  priceId          String?
-  currentPeriodEnd Int?
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-  user             User     @relation(fields: [userId], references: [id])
-}
-
-model ProgressEntry {
-  id         String   @id @default(cuid())
-  userId     String
-  date       DateTime @default(now())
-  exerciseId String
-  sets       Int?
-  reps       String?
-  notes      String?
-  user       User     @relation(fields: [userId], references: [id])
 }

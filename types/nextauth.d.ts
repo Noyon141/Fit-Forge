@@ -1,2 +1,20 @@
-// NextAuth types are declared in app/api/auth/[...nextauth]/route.ts
-// to avoid duplicate module augmentation
+import "next-auth";
+
+declare module "next-auth" {
+  interface User {
+    id: string;
+    role: "USER" | "COACH" | "ADMIN";
+  }
+
+  interface Session {
+    user: {
+      id: string;
+      email: string;
+      role: "USER" | "COACH" | "ADMIN";
+    };
+  }
+
+  interface JWT {
+    role: "USER" | "COACH" | "ADMIN";
+  }
+}
