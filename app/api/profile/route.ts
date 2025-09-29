@@ -67,8 +67,6 @@ export async function POST(req: Request) {
       update: parsedBody.data,
     });
 
-    console.log("Profile updated for user:", parsedBody.data);
-
     return NextResponse.json({ message: "Profile updated" }, { status: 200 });
   } catch (error) {
     console.error("Error updating profile:", error);
