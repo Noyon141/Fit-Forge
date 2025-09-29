@@ -105,20 +105,39 @@ const AnimatedDialogContent = React.forwardRef<
   React.ComponentRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >(({ className, children, ...props }, ref) => {
+  // Check if this is a large modal based on className
+  const isLargeModal =
+    className?.includes("max-w-4xl") ||
+    className?.includes("max-h-[8") ||
+    className?.includes("!top-[5vh]");
+
   return (
     <DialogPortal>
-      {/* AnimatePresence is needed to detect when the component is removed from the tree */}
       <AnimatePresence>
-        <AnimatedDialogOverlay />
-        <DialogPrimitive.Content ref={ref} asChild {...props}>
+        {/* Overlay with unique key */}
+        <AnimatedDialogOverlay key="overlay" />
+        {/* Content with unique key */}
+        <DialogPrimitive.Content key="content" ref={ref} asChild {...props}>
           <motion.div
             className={cn(
               "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 sm:rounded-lg",
               className
             )}
-            initial={{ opacity: 0, scale: 0.95, y: "-48%" }}
-            animate={{ opacity: 1, scale: 1, y: "-50%" }}
-            exit={{ opacity: 0, scale: 0.95, y: "-48%" }}
+            initial={{
+              opacity: 0,
+              scale: 0.95,
+              y: isLargeModal ? "0%" : "-48%",
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              y: isLargeModal ? "0%" : "-50%",
+            }}
+            exit={{
+              opacity: 0,
+              scale: 0.95,
+              y: isLargeModal ? "0%" : "-48%",
+            }}
             transition={{ duration: 0.2, ease: "easeOut" }}
           >
             {children}

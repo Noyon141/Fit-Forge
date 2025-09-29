@@ -1,8 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import { authOptions } from "../auth/[...nextauth]/route";
 
+import { authOptions } from "@/lib/auth";
 import type { AiPlan } from "@/lib/validators/aiPlan";
 import { parseAiPlan } from "@/lib/validators/aiPlan";
 import { GoogleGenAI, Type } from "@google/genai";
