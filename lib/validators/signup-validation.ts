@@ -1,6 +1,6 @@
 import z from "zod";
 
-export const schema = z.object({
+export const signupSchema = z.object({
   email: z
     .email({ error: "Please enter a valid email address" })
     .min(2)
@@ -16,5 +16,5 @@ export const schema = z.object({
     })
     .min(2)
     .max(100),
-  role: z.enum(["USER", "COACH", "ADMIN"]),
+  role: z.enum(["USER", "COACH", "ADMIN"]).default("USER").optional(),
 });
