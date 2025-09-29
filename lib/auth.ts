@@ -2,6 +2,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { compare } from "bcryptjs";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "./prisma";
 
 export const authOptions: NextAuthOptions = {
@@ -25,6 +26,19 @@ export const authOptions: NextAuthOptions = {
         if (!isValid) return null;
 
         return { id: user.id, email: user.email, role: user.role };
+      },
+    }),
+    // GoogleProvider
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+          scope: "email profile",
+        },
       },
     }),
   ],
