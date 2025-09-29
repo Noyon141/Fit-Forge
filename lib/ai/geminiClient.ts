@@ -1,11 +1,12 @@
 import { AiPlan, parseAiPlan } from "@/lib/validators/aiPlan";
 import { Profile } from "@/types";
-// **CHANGE**: Import the official SDK
 import {
   GoogleGenerativeAI,
   HarmBlockThreshold,
   HarmCategory,
 } from "@google/generative-ai";
+import { Redis } from "@upstash/redis";
+import { createHash } from "crypto";
 
 const KEY = process.env.GEMINI_API_KEY!;
 
@@ -16,7 +17,22 @@ if (!KEY) {
 // **CHANGE**: Initialize the Generative AI client
 const genAI = new GoogleGenerativeAI(KEY);
 
-// **CHANGE**: Configure the model with JSON response type and safety settings
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL!,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+});
+function createCacheKey(profile: Profile): any {
+  const sortedProfile = Object.keys(profile)
+    .sort()
+    .reduce((obj: Record<string, any>, key) => {
+      obj[key] = profile[key as keyof Profile];
+      return obj;
+    }, {} as Record<string, any>);
+
+  const profileString = JSON.stringify(sortedProfile);
+  return createHash("sha256").update(profileString).digest("hex");
+}
+
 const model = genAI.getGenerativeModel({
   model: "gemini-2.5-flash",
   generationConfig: {
@@ -79,6 +95,25 @@ Do NOT include any extra text, markdown formatting like \`\`\`json, or explanati
 export default {
   // Your robust generatePlan logic remains largely the same, which is great!
   async generatePlan(profile: Profile): Promise<AiPlan> {
+    const cacheKey = createCacheKey(profile);
+
+    // **4. Check the Redis cache for an existing plan**
+    try {
+      const cachedPlan = await redis.get<AiPlan>(cacheKey);
+      if (cachedPlan) {
+        console.log(
+          `CACHE HIT: Found plan for key: ${cacheKey.substring(0, 10)}...`
+        );
+        return cachedPlan;
+      }
+    } catch (error) {
+      console.error("Redis GET failed:", error);
+      // If Redis fails, we can proceed to generate a new plan instead of crashing
+    }
+
+    console.log(
+      `CACHE MISS: Generating new plan for key: ${cacheKey.substring(0, 10)}...`
+    );
     const prompt = buildPrompt(profile);
     let jsonString: string;
 
@@ -91,7 +126,19 @@ export default {
 
     try {
       const parsedJson = JSON.parse(jsonString);
-      return parseAiPlan(parsedJson); // Validate with Zod
+      const validPlan = parseAiPlan(parsedJson);
+
+      // **5. Store the new plan in Redis with an expiration time**
+      try {
+        await redis.set(cacheKey, JSON.stringify(validPlan), {
+          ex: 86400, // Expire after 24 hours (86400 seconds)
+        });
+      } catch (error) {
+        console.error("Redis SET failed:", error);
+        // If caching fails, we still return the plan to the user
+      }
+
+      return validPlan;
     } catch (e) {
       console.warn("Initial parsing failed. Attempting to repair.", e);
 
