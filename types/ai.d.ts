@@ -1,33 +1,22 @@
-// /types/ai.ts
+export type ID = string;
+
 export interface AiExercise {
   id: string;
   name: string;
   sets: number;
-  reps: string; // e.g. "8-12"
-  tempo?: string | null; // e.g. "2-0-1"
+  reps: string;
+  tempo?: string | null;
   restSec?: number | null;
   progression?: string | null;
   notes?: string | null;
 }
 
 export interface AiWorkoutDay {
-  name: string; // e.g. "Upper Push"
-  warmup?: string[]; // array of warmup items
+  id: string;
+  name: string;
+  warmup?: string[];
   exercises: AiExercise[];
-  cooldown?: string[]; // array of cooldown items
-}
-
-export interface AiWeek {
-  weekNumber: number;
-  days: Record<string, AiWorkoutDay>; // "day1", "day2", ...
-}
-
-export interface AiNutrition {
-  calories?: number | null;
-  protein_g?: number | null;
-  carbs_g?: number | null;
-  fats_g?: number | null;
-  notes?: string | null;
+  cooldown?: string[];
 }
 
 export interface AiPlan {
@@ -38,7 +27,13 @@ export interface AiPlan {
       [dayKey: string]: AiWorkoutDay;
     };
   };
-  nutrition?: AiNutrition;
-  progressMetrics?: string[]; // e.g. ["bodyweight","completion_percent"]
+  nutrition?: {
+    calories?: number | null;
+    protein_g?: number | null;
+    carbs_g?: number | null;
+    fats_g?: number | null;
+    notes?: string | null;
+  };
+  progressMetrics?: string[];
   coachNotes?: string | null;
 }
