@@ -1,27 +1,24 @@
+import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { ProfileInputSchema } from "@/lib/validators/profile";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import z from "zod";
-import { authOptions } from "../auth/[...nextauth]/route";
 
-export async function POST(req: Request) {
+export async function GET(req: Request) {
   try {
     const session = await getServerSession(authOptions);
-
     if (!session?.user?.email) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const body = await req.json();
+
     const parsedBody = ProfileInputSchema.safeParse(body);
 
     if (!parsedBody.success) {
-      const error = z.treeifyError(parsedBody.error);
-
-      console.error("Profile input validation error:", error);
       return NextResponse.json(
-        { error: "Invalid profile input", details: error },
+        { error: "Invalid input", details: z.treeifyError(parsedBody.error) },
         { status: 400 }
       );
     }
@@ -34,25 +31,21 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const transformedData = {
-      ...parsedBody.data,
-      gender: parsedBody.data.gender
-        ? (parsedBody.data.gender.toUpperCase() as "MALE" | "FEMALE")
-        : undefined,
-    };
-
     await prisma.profile.upsert({
       where: { userId: user.id },
-      update: transformedData,
-      create: { userId: user.id, ...transformedData },
+      create: {
+        userId: user.id,
+        ...parsedBody.data,
+      },
+      update: parsedBody.data,
     });
 
-    console.log("Profile created/updated for user:", user.email);
+    console.log("Profile updated for user:", parsedBody.data);
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ message: "Profile updated" }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to create profile" },
+      { error: "Internal Server Error" },
       { status: 500 }
     );
   }
