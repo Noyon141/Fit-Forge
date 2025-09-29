@@ -1,17 +1,21 @@
-export interface Workout {
-  id: string; // unique id for workout
-  day: string;
-  workout: string;
-}
+import { z } from "zod";
 
-export interface WeekPlan {
-  id: string; // unique id for week
-  week: number;
-  workouts: Workout[];
-}
+export const ExerciseSchema = z.object({
+  name: z.string(),
+  sets: z.string(),
+  reps: z.string(),
+});
 
-export interface FitForgePlan {
-  id: string; // plan-level id
-  title: string;
-  weeks: WeekPlan[];
-}
+export const DayPlanSchema = z.object({
+  day: z.string(),
+  exercises: z.array(ExerciseSchema),
+});
+
+export const PlanResponseSchema = z.object({
+  week: z.array(DayPlanSchema),
+});
+
+// 🔒 Type inference (no `any`)
+export type Exercise = z.infer<typeof ExerciseSchema>;
+export type DayPlan = z.infer<typeof DayPlanSchema>;
+export type PlanResponse = z.infer<typeof PlanResponseSchema>;

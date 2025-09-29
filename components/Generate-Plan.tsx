@@ -1,7 +1,9 @@
 "use client";
 
+import { exportElementToPdf } from "@/lib/pdf/exportClient";
 import { AiPlan } from "@/lib/validators/aiPlan";
 import axios from "axios";
+import { Download } from "lucide-react";
 import { useState } from "react";
 import { AnimatedButton } from "./animations/Animated-Button";
 import {
@@ -87,11 +89,16 @@ export default function GeneratePlan({
                         className="mb-8 p-4 border-2 border-black dark:border-stone-50 rounded-2xl"
                       >
                         <h4 className="text-lg font-bold mb-4 capitalize">
-                          {weekKey}
+                          {weekKey.toUpperCase()}
                         </h4>
                         {Object.entries(week).map(([dayKey, day]) => (
-                          <div key={`${weekKey}-${dayKey}`} className="mb-6">
+                          <div key={dayKey} className="mb-6">
                             <h5 className="font-medium mb-3">{day.name}</h5>
+                            {day.warmup && (
+                              <div className="text-sm text-muted-foreground mb-2">
+                                Warmup: {day.warmup.join(", ")}
+                              </div>
+                            )}
                             <div className="space-y-2 pl-4">
                               {day.exercises.map((exercise) => (
                                 <div key={exercise.id} className="text-sm">
@@ -101,6 +108,11 @@ export default function GeneratePlan({
                                   <span className="ml-2 opacity-70">
                                     {exercise.sets} sets × {exercise.reps} reps
                                   </span>
+                                  {exercise.notes && (
+                                    <div className="text-sm text-muted-foreground">
+                                      {exercise.notes}
+                                    </div>
+                                  )}
                                 </div>
                               ))}
                             </div>
@@ -109,6 +121,17 @@ export default function GeneratePlan({
                       </div>
                     )
                   )}
+
+                  <div className="mt-4 flex gap-2">
+                    <AnimatedButton
+                      onClick={() => exportElementToPdf("plan-print")}
+                      variant={"secondary"}
+                      className="px-4 py-2 rounded flex items-center justify-center gap-2"
+                    >
+                      Download PDF
+                      <Download className="ml-2" />
+                    </AnimatedButton>
+                  </div>
                 </div>
               </div>
             </div>

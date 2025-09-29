@@ -6,6 +6,7 @@ import {
   AnimatedFormItem,
 } from "@/components/animations/Form-Animation";
 import GeneratePlan from "@/components/Generate-Plan";
+import ProgressPlan from "@/components/Progress-Plan";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
@@ -29,9 +30,28 @@ const Dashboard = async () => {
             </p>
           </div>
         </AnimatedFormItem>
-
+        <AnimatedFormItem>
+          <AnimatedCard className="border-2 border-black dark:border-stone-50 p-6">
+            <h2 className="text-2xl font-bold text-black dark:text-stone-50 mb-6">
+              Quick Actions
+            </h2>
+            <div className="grid grid-cols-2 gap-4">
+              <GeneratePlan />
+              <ProgressPlan />
+              <AnimatedButton className="p-4 py-16 bg-stone-50 dark:bg-black border-2 border-black dark:border-stone-50 text-black dark:text-stone-50 rounded-2xl hover:bg-stone-100 dark:hover:bg-gray-800 transition-colors">
+                <div className="text-2xl mb-2">⚙️</div>
+                <p className="font-medium">Settings</p>
+              </AnimatedButton>
+              <AnimatedButton className="p-4 py-16 bg-stone-50 dark:bg-black border-2 border-black dark:border-stone-50 text-black dark:text-stone-50 rounded-2xl hover:bg-stone-100 dark:hover:bg-gray-800 transition-colors">
+                <div className="text-2xl mb-2">👤</div>
+                <p className="font-medium">Profile</p>
+              </AnimatedButton>
+            </div>
+          </AnimatedCard>
+        </AnimatedFormItem>
+        {/*
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {/* <AnimatedFormItem>
+           <AnimatedFormItem>
             <AnimatedCard className="border-2 border-black dark:border-stone-50 p-6">
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-12 h-12 bg-black dark:bg-stone-50 rounded-2xl flex items-center justify-center text-stone-50 dark:text-black text-xl">
@@ -128,31 +148,9 @@ const Dashboard = async () => {
                 </div>
               </div>
             </AnimatedCard>
-          </AnimatedFormItem> */}
+          </AnimatedFormItem> 
 
-          <AnimatedFormItem>
-            <AnimatedCard className="border-2 border-black dark:border-stone-50 p-6">
-              <h2 className="text-2xl font-bold text-black dark:text-stone-50 mb-6">
-                Quick Actions
-              </h2>
-              <div className="grid grid-cols-2 gap-4">
-                <GeneratePlan />
-                <AnimatedButton className="p-4 py-16 bg-stone-50 dark:bg-black border-2 border-black dark:border-stone-50 text-black dark:text-stone-50 rounded-2xl hover:bg-stone-100 dark:hover:bg-gray-800 transition-colors">
-                  <div className="text-2xl mb-2">📊</div>
-                  <p className="font-medium">Progress</p>
-                </AnimatedButton>
-                <AnimatedButton className="p-4 py-16 bg-stone-50 dark:bg-black border-2 border-black dark:border-stone-50 text-black dark:text-stone-50 rounded-2xl hover:bg-stone-100 dark:hover:bg-gray-800 transition-colors">
-                  <div className="text-2xl mb-2">⚙️</div>
-                  <p className="font-medium">Settings</p>
-                </AnimatedButton>
-                <AnimatedButton className="p-4 py-16 bg-stone-50 dark:bg-black border-2 border-black dark:border-stone-50 text-black dark:text-stone-50 rounded-2xl hover:bg-stone-100 dark:hover:bg-gray-800 transition-colors">
-                  <div className="text-2xl mb-2">👤</div>
-                  <p className="font-medium">Profile</p>
-                </AnimatedButton>
-              </div>
-            </AnimatedCard>
-          </AnimatedFormItem>
-        </div>
+        </div>*/}
       </AnimatedFormContainer>
     </div>
   );
