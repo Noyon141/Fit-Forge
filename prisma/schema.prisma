@@ -13,6 +13,10 @@ enum Role {
   ADMIN
 }
 
+enum Gender {
+  MALE
+  FEMALE
+}
 
 model User {
   id String @id @default(cuid())
@@ -25,4 +29,40 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  profile      Profile?
+  workoutPlans WorkoutPlan[]
+}
+
+model Profile {
+  id     String @id @default(cuid())
+  userId String @unique
+
+  age    Int?
+  gender Gender
+
+  heightCm Int?
+  weightKg Int?
+
+  goal            String?
+  experienceLevel String?
+
+  timePerWeek Int?
+  equipment   String?
+
+  user User @relation(fields: [userId], references: [id])
+
+  updatedAt DateTime @updatedAt
+}
+
+model WorkoutPlan {
+  id      String @id @default(cuid())
+  userId  String
+  title   String
+  content Json
+
+  createdAt DateTime  @default(now())
+  expiresAt DateTime?
+
+  user User @relation(fields: [userId], references: [id])
 }
