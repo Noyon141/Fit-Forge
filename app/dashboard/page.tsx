@@ -1,6 +1,7 @@
 "use client";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { AnimatedButton } from "@/components/animations/Animated-Button";
@@ -23,13 +24,12 @@ import {
   Target,
   TrendingUp,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
 
 export default function DashboardPage() {
+  const router = useRouter();
   const [profileExists, setProfileExists] = useState<boolean | null>(null);
   const setPlan = usePlanStore((s) => s.setPlan);
   const plan = usePlanStore((s) => s.plan);
-  const router = useRouter();
 
   // Workout plans store
   const { plans, isLoading, error, hasLoaded, fetchPlans } =
@@ -262,7 +262,6 @@ export default function DashboardPage() {
                     onClick={() => {
                       setPlan(workoutPlan.content);
                       router.push(`/dashboard/plan/${workoutPlan.id}`);
-                      // Navigate to plan detail if needed
                     }}
                   >
                     <div className="space-y-4">
@@ -281,8 +280,16 @@ export default function DashboardPage() {
                 ))}
               </DashboardGrid>
             ) : plan ? (
-              <Link href="/dashboard/plan">
-                <DashboardCard className="cursor-pointer transition-all hover:shadow-xl">
+              <div
+                className="cursor-pointer"
+                onClick={() => {
+                  const latestPlanId = plans.length > 0 ? plans[0].id : null;
+                  if (latestPlanId) {
+                    router.push(`/dashboard/plan/${latestPlanId}`);
+                  }
+                }}
+              >
+                <DashboardCard className="transition-all hover:shadow-xl">
                   <div className="space-y-6">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
@@ -304,7 +311,7 @@ export default function DashboardPage() {
                     </div>
                   </div>
                 </DashboardCard>
-              </Link>
+              </div>
             ) : null}
           </div>
         </div>
