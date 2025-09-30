@@ -23,11 +23,13 @@ import {
   Target,
   TrendingUp,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function DashboardPage() {
   const [profileExists, setProfileExists] = useState<boolean | null>(null);
   const setPlan = usePlanStore((s) => s.setPlan);
   const plan = usePlanStore((s) => s.plan);
+  const router = useRouter();
 
   // Workout plans store
   const { plans, isLoading, error, hasLoaded, fetchPlans } =
@@ -51,8 +53,11 @@ export default function DashboardPage() {
   useEffect(() => {
     if (latestPlan && !plan) {
       setPlan(latestPlan.content);
+    } else if (hasLoaded && plans.length === 0 && plan) {
+      // Clear the plan if no plans exist after loading
+      setPlan(null);
     }
-  }, [latestPlan, plan, setPlan]);
+  }, [latestPlan, plan, setPlan, hasLoaded, plans.length]);
 
   async function fetchLatestPlan() {
     try {
@@ -256,6 +261,7 @@ export default function DashboardPage() {
                     className="cursor-pointer transition-all hover:shadow-xl"
                     onClick={() => {
                       setPlan(workoutPlan.content);
+                      router.push(`/dashboard/plan/${workoutPlan.id}`);
                       // Navigate to plan detail if needed
                     }}
                   >

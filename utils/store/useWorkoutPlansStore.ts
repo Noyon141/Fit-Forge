@@ -61,6 +61,7 @@ export const useWorkoutPlansStore = create<WorkoutPlansStore>((set, get) => ({
         plans: data.plans || [],
         isLoading: false,
         error: null,
+        hasLoaded: true,
       });
     } catch (error) {
       console.error("Error fetching workout plans:", error);
@@ -68,6 +69,7 @@ export const useWorkoutPlansStore = create<WorkoutPlansStore>((set, get) => ({
         plans: [],
         isLoading: false,
         error: error instanceof Error ? error.message : "Failed to fetch plans",
+        hasLoaded: true,
       });
     }
   },
