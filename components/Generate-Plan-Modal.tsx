@@ -3,6 +3,7 @@ import { AiPlan } from "@/types/ai";
 import { usePlanStore } from "@/utils/store/usePlanStore";
 import axios from "axios";
 import { useState } from "react";
+import { AnimatedButton } from "./animations/Animated-Button";
 
 export default function GeneratePlanModal({
   onCreated,
@@ -33,12 +34,12 @@ export default function GeneratePlanModal({
 
   return (
     <>
-      <button
+      <AnimatedButton
         onClick={() => setOpen(true)}
-        className="px-4 py-2 bg-black text-white rounded"
+        className="px-4 py-2 font-semibold rounded"
       >
         Generate Plan
-      </button>
+      </AnimatedButton>
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="bg-white p-6 rounded max-w-md w-full">
@@ -53,13 +54,13 @@ export default function GeneratePlanModal({
               >
                 Cancel
               </button>
-              <button
+              <AnimatedButton
                 onClick={handleGenerate}
                 disabled={loading}
-                className="px-4 py-2 bg-green-600 text-white rounded"
+                className="px-4 py-2  rounded"
               >
                 {loading ? "Generating..." : "Generate"}
-              </button>
+              </AnimatedButton>
             </div>
           </div>
         </div>

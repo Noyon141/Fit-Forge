@@ -63,7 +63,7 @@ export default function Navbar() {
           <div className="mb-4">
             <div className="flex items-center gap-3 mb-1 justify-between">
               <p className="text-lg font-medium text-black dark:text-stone-50">
-                {session?.user?.name || "User"}
+                {session?.user?.role || "User"}
               </p>
               <ModeToggle />
             </div>
@@ -160,7 +160,7 @@ export default function Navbar() {
                 <div className="mb-6">
                   <div className="flex items-center gap-3 mb-1 justify-between">
                     <p className="text-lg font-medium text-black dark:text-stone-50">
-                      {session?.user?.name || "User"}
+                      {session?.user?.email || "User"}
                     </p>
                     <ModeToggle />
                   </div>
