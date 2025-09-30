@@ -48,3 +48,38 @@ export async function POST(req: Request) {
     );
   }
 }
+
+export async function GET(req: Request) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.email) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+      include: { workoutPlans: true, profile: true },
+    });
+
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+    if (!user?.profile) {
+      return NextResponse.json({ error: "Profile required" }, { status: 404 });
+    }
+
+    const plans = user.workoutPlans.map((plan) => ({
+      id: plan.id,
+      title: plan.title,
+      content: plan.content,
+      createdAt: plan.createdAt,
+    }));
+
+    return NextResponse.json({ plans }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}
