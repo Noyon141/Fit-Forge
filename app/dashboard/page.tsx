@@ -70,25 +70,25 @@ export default function DashboardPage() {
   return (
     <DashboardContent>
       <DashboardHeader>
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-          <div>
-            <h1 className="text-4xl lg:text-5xl font-bold text-black dark:text-stone-50 mb-3">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-6">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black dark:text-stone-50 mb-2 sm:mb-3 break-words">
               Dashboard
             </h1>
-            <p className="text-xl text-black dark:text-stone-50 opacity-80">
+            <p className="text-base sm:text-lg lg:text-xl text-black dark:text-stone-50 opacity-80">
               Track your fitness journey and progress
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 flex-shrink-0">
             {profileExists ? (
               <GeneratePlanModal onCreated={(p) => setPlan(p)} />
             ) : (
               <Link href="/profile">
                 <AnimatedButton
                   size="lg"
-                  className="px-8 py-4 text-lg bg-black dark:bg-stone-50 text-stone-50 dark:text-black hover:bg-gray-800 dark:hover:bg-stone-100 border-0 font-semibold"
+                  className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg bg-black dark:bg-stone-50 text-stone-50 dark:text-black hover:bg-gray-800 dark:hover:bg-stone-100 border-0 font-semibold"
                 >
-                  <Target className="w-5 h-5 mr-2" />
+                  <Target className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                   Create Profile
                 </AnimatedButton>
               </Link>
@@ -98,16 +98,16 @@ export default function DashboardPage() {
       </DashboardHeader>
 
       {isLoading && !hasLoaded ? (
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           {/* Skeleton Stats Grid */}
-          <DashboardGrid className="grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+          <DashboardGrid className="grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
             {[...Array(4)].map((_, i) => (
               <DashboardCard key={i}>
-                <div className="flex items-center gap-4">
-                  <Skeleton className="w-12 h-12 rounded-2xl" />
-                  <div className="space-y-2">
-                    <Skeleton className="h-8 w-8" />
-                    <Skeleton className="h-4 w-16" />
+                <div className="flex items-center gap-2 sm:gap-4">
+                  <Skeleton className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex-shrink-0" />
+                  <div className="space-y-2 min-w-0 flex-1">
+                    <Skeleton className="h-6 sm:h-8 w-6 sm:w-8" />
+                    <Skeleton className="h-3 sm:h-4 w-12 sm:w-16" />
                   </div>
                 </div>
               </DashboardCard>
@@ -115,24 +115,24 @@ export default function DashboardPage() {
           </DashboardGrid>
 
           {/* Skeleton Plan Section */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             <div className="flex items-center gap-3">
-              <Skeleton className="w-8 h-8 rounded-xl" />
-              <Skeleton className="h-9 w-48" />
+              <Skeleton className="w-8 h-8 rounded-xl flex-shrink-0" />
+              <Skeleton className="h-6 sm:h-8 lg:h-9 w-32 sm:w-48" />
             </div>
 
             <DashboardCard>
-              <div className="space-y-6">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1 space-y-4">
-                    <Skeleton className="h-8 w-3/4" />
-                    <Skeleton className="h-6 w-full" />
-                    <Skeleton className="h-6 w-2/3" />
+              <div className="space-y-4 sm:space-y-6">
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="flex-1 space-y-3 sm:space-y-4 min-w-0">
+                    <Skeleton className="h-6 sm:h-7 lg:h-8 w-full max-w-xs" />
+                    <Skeleton className="h-4 sm:h-5 lg:h-6 w-full" />
+                    <Skeleton className="h-4 sm:h-5 lg:h-6 w-3/4" />
                   </div>
-                  <Skeleton className="w-12 h-12 rounded-2xl ml-4" />
+                  <Skeleton className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex-shrink-0" />
                 </div>
-                <div className="pt-4 border-t border-black/20 dark:border-stone-50/20">
-                  <Skeleton className="h-4 w-32 mx-auto" />
+                <div className="pt-3 sm:pt-4 border-t border-black/20 dark:border-stone-50/20">
+                  <Skeleton className="h-3 sm:h-4 w-24 sm:w-32 mx-auto" />
                 </div>
               </div>
             </DashboardCard>
@@ -141,17 +141,17 @@ export default function DashboardPage() {
       ) : plans.length > 0 || plan ? (
         <div className="space-y-8">
           {/* Quick Stats Grid */}
-          <DashboardGrid className="grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+          <DashboardGrid className="grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
             <DashboardCard>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-black dark:bg-stone-50 rounded-2xl flex items-center justify-center text-stone-50 dark:text-black">
-                  <Calendar className="w-6 h-6" />
+              <div className="flex items-center gap-2 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-black dark:bg-stone-50 rounded-2xl flex items-center justify-center text-stone-50 dark:text-black flex-shrink-0">
+                  <Calendar className="w-4 h-4 sm:w-6 sm:h-6" />
                 </div>
-                <div>
-                  <p className="text-2xl font-bold text-black dark:text-stone-50">
+                <div className="min-w-0">
+                  <p className="text-lg sm:text-2xl font-bold text-black dark:text-stone-50">
                     4
                   </p>
-                  <p className="text-black dark:text-stone-50 opacity-70">
+                  <p className="text-xs sm:text-sm text-black dark:text-stone-50 opacity-70">
                     Weeks
                   </p>
                 </div>
@@ -159,15 +159,15 @@ export default function DashboardPage() {
             </DashboardCard>
 
             <DashboardCard>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-black dark:bg-stone-50 rounded-2xl flex items-center justify-center text-stone-50 dark:text-black">
-                  <Dumbbell className="w-6 h-6" />
+              <div className="flex items-center gap-2 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-black dark:bg-stone-50 rounded-2xl flex items-center justify-center text-stone-50 dark:text-black flex-shrink-0">
+                  <Dumbbell className="w-4 h-4 sm:w-6 sm:h-6" />
                 </div>
-                <div>
-                  <p className="text-2xl font-bold text-black dark:text-stone-50">
+                <div className="min-w-0">
+                  <p className="text-lg sm:text-2xl font-bold text-black dark:text-stone-50">
                     0
                   </p>
-                  <p className="text-black dark:text-stone-50 opacity-70">
+                  <p className="text-xs sm:text-sm text-black dark:text-stone-50 opacity-70">
                     Completed
                   </p>
                 </div>
@@ -175,15 +175,15 @@ export default function DashboardPage() {
             </DashboardCard>
 
             <DashboardCard>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-black dark:bg-stone-50 rounded-2xl flex items-center justify-center text-stone-50 dark:text-black">
-                  <TrendingUp className="w-6 h-6" />
+              <div className="flex items-center gap-2 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-black dark:bg-stone-50 rounded-2xl flex items-center justify-center text-stone-50 dark:text-black flex-shrink-0">
+                  <TrendingUp className="w-4 h-4 sm:w-6 sm:h-6" />
                 </div>
-                <div>
-                  <p className="text-2xl font-bold text-black dark:text-stone-50">
+                <div className="min-w-0">
+                  <p className="text-lg sm:text-2xl font-bold text-black dark:text-stone-50">
                     0%
                   </p>
-                  <p className="text-black dark:text-stone-50 opacity-70">
+                  <p className="text-xs sm:text-sm text-black dark:text-stone-50 opacity-70">
                     Progress
                   </p>
                 </div>
@@ -191,15 +191,15 @@ export default function DashboardPage() {
             </DashboardCard>
 
             <DashboardCard>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-black dark:bg-stone-50 rounded-2xl flex items-center justify-center text-stone-50 dark:text-black">
-                  <Clock className="w-6 h-6" />
+              <div className="flex items-center gap-2 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-black dark:bg-stone-50 rounded-2xl flex items-center justify-center text-stone-50 dark:text-black flex-shrink-0">
+                  <Clock className="w-4 h-4 sm:w-6 sm:h-6" />
                 </div>
-                <div>
-                  <p className="text-2xl font-bold text-black dark:text-stone-50">
+                <div className="min-w-0">
+                  <p className="text-lg sm:text-2xl font-bold text-black dark:text-stone-50">
                     {plans.length}
                   </p>
-                  <p className="text-black dark:text-stone-50 opacity-70">
+                  <p className="text-xs sm:text-sm text-black dark:text-stone-50 opacity-70">
                     Plans
                   </p>
                 </div>
@@ -208,13 +208,13 @@ export default function DashboardPage() {
           </DashboardGrid>
 
           {/* Current Plan Section */}
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-black dark:bg-stone-50 rounded-xl flex items-center justify-center text-stone-50 dark:text-black">
+          <div className="space-y-4 sm:space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="flex items-center gap-3 min-w-0 flex-1">
+                <div className="w-8 h-8 bg-black dark:bg-stone-50 rounded-xl flex items-center justify-center text-stone-50 dark:text-black flex-shrink-0">
                   <Activity className="w-5 h-5" />
                 </div>
-                <h2 className="text-3xl font-bold text-black dark:text-stone-50">
+                <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-black dark:text-stone-50 break-words">
                   {plans.length > 1
                     ? "Your Workout Plans"
                     : "Your Current Plan"}
@@ -222,11 +222,11 @@ export default function DashboardPage() {
               </div>
 
               {/* Additional Actions */}
-              <div className="flex gap-3">
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 flex-shrink-0">
                 <Link href="/profile">
                   <AnimatedButton
                     variant="outline"
-                    className="px-6 py-3 text-base border-2 border-black dark:border-stone-50 text-black dark:text-stone-50 hover:bg-black hover:text-stone-50 dark:hover:bg-stone-50 dark:hover:text-black font-semibold"
+                    className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base border-2 border-black dark:border-stone-50 text-black dark:text-stone-50 hover:bg-black hover:text-stone-50 dark:hover:bg-stone-50 dark:hover:text-black font-semibold"
                   >
                     Update Profile
                   </AnimatedButton>
@@ -264,14 +264,14 @@ export default function DashboardPage() {
                       router.push(`/dashboard/plan/${workoutPlan.id}`);
                     }}
                   >
-                    <div className="space-y-4">
-                      <h3 className="text-2xl font-bold text-black dark:text-stone-50">
+                    <div className="space-y-3 sm:space-y-4">
+                      <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-black dark:text-stone-50 break-words">
                         {workoutPlan.title}
                       </h3>
-                      <p className="text-lg text-black dark:text-stone-50 opacity-80 line-clamp-3">
+                      <p className="text-sm sm:text-base lg:text-lg text-black dark:text-stone-50 opacity-80 line-clamp-3">
                         {workoutPlan.content.summary}
                       </p>
-                      <div className="text-sm text-black dark:text-stone-50 opacity-60">
+                      <div className="text-xs sm:text-sm text-black dark:text-stone-50 opacity-60">
                         Created:{" "}
                         {new Date(workoutPlan.createdAt).toLocaleDateString()}
                       </div>
@@ -290,22 +290,22 @@ export default function DashboardPage() {
                 }}
               >
                 <DashboardCard className="transition-all hover:shadow-xl">
-                  <div className="space-y-6">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h3 className="text-2xl lg:text-3xl font-bold text-black dark:text-stone-50 mb-2 line-clamp-2">
+                  <div className="space-y-4 sm:space-y-6">
+                    <div className="flex items-start gap-3 sm:gap-4">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-black dark:text-stone-50 mb-2 break-words">
                           {plan.title}
                         </h3>
-                        <p className="text-lg text-black dark:text-stone-50 opacity-80 line-clamp-3 leading-relaxed">
+                        <p className="text-sm sm:text-base lg:text-lg text-black dark:text-stone-50 opacity-80 line-clamp-3 leading-relaxed">
                           {plan.summary}
                         </p>
                       </div>
-                      <div className="ml-4 w-12 h-12 bg-black dark:bg-stone-50 rounded-2xl flex items-center justify-center text-stone-50 dark:text-black flex-shrink-0">
-                        <Target className="w-6 h-6" />
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-black dark:bg-stone-50 rounded-2xl flex items-center justify-center text-stone-50 dark:text-black flex-shrink-0">
+                        <Target className="w-4 h-4 sm:w-6 sm:h-6" />
                       </div>
                     </div>
-                    <div className="pt-4 border-t border-black/20 dark:border-stone-50/20">
-                      <p className="text-center text-black dark:text-stone-50 opacity-60 text-sm font-medium">
+                    <div className="pt-3 sm:pt-4 border-t border-black/20 dark:border-stone-50/20">
+                      <p className="text-center text-black dark:text-stone-50 opacity-60 text-xs sm:text-sm font-medium">
                         Click to view full plan →
                       </p>
                     </div>
