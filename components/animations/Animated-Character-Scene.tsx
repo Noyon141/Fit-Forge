@@ -30,8 +30,6 @@ function WarmupModel({ scrollProgress }: { scrollProgress: number }) {
   const group = useRef<Group>(null);
   const { scene, animations } = useGLTF("/models/warmup.glb");
   const { actions, mixer } = useAnimations(animations, group);
-  const lastScrollProgress = useRef(0);
-  const animationTimeRef = useRef(0);
 
   useEffect(() => {
     // Play the first animation if available
@@ -45,30 +43,35 @@ function WarmupModel({ scrollProgress }: { scrollProgress: number }) {
   }, [actions]);
 
   useFrame((state, delta) => {
-    if (mixer) {
-      // Control animation based on scroll progress
-      const scrollDelta = scrollProgress - lastScrollProgress.current;
+    if (mixer && actions) {
+      // Get the first animation action
+      const firstActionKey = Object.keys(actions)[0];
+      const firstAction = actions[firstActionKey];
 
-      if (Math.abs(scrollDelta) > 0.001) {
-        // User is scrolling - advance animation
-        animationTimeRef.current += Math.abs(scrollDelta) * 2;
-        mixer.setTime(animationTimeRef.current);
-        mixer.update(0);
+      if (firstAction && firstAction.getClip()) {
+        // Calculate animation time based on scroll progress
+        const animationDuration = firstAction.getClip().duration;
+        const targetTime = scrollProgress * animationDuration;
+
+        // Update animation time directly based on scroll
+        firstAction.time = targetTime;
+        firstAction.enabled = true;
+
+        // Sync mixer time with scroll
+        mixer.setTime(targetTime);
+        mixer.update(0); // Update without advancing time
       }
-      // If not scrolling, animation pauses at current frame
-
-      lastScrollProgress.current = scrollProgress;
     }
 
     if (group.current) {
-      // Gentle floating animation
+      // Gentle floating animation (reduced intensity)
       group.current.position.y =
-        Math.sin(state.clock.elapsedTime * 0.3) * 0.2 - 0.5;
+        Math.sin(state.clock.elapsedTime * 0.2) * 0.1 - 0.5;
 
-      // Subtle rotation based on scroll
-      group.current.rotation.y = scrollProgress * Math.PI * 0.3;
+      // Rotation based on scroll with smoother transitions
+      group.current.rotation.y = scrollProgress * Math.PI * 0.2;
 
-      // Scale based on scroll for depth effect (balanced range)
+      // Scale based on scroll for depth effect (more responsive)
       const scale = 1.8 + scrollProgress * 0.5;
       group.current.scale.setScalar(scale);
     }
@@ -101,8 +104,8 @@ export function BackgroundCharacterScene({
     >
       <Canvas
         camera={{
-          position: [4, 2, 6],
-          fov: 60,
+          position: [1, 3, 7],
+          fov: 50,
         }}
         gl={{
           antialias: true,
@@ -126,7 +129,7 @@ export function BackgroundCharacterScene({
           <WarmupModel scrollProgress={scrollProgress} />
 
           {/* Environment for better lighting */}
-          <Environment preset="city" />
+          <Environment preset="night" />
 
           {/* Ground shadow */}
           <ContactShadows

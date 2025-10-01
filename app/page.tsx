@@ -1,15 +1,17 @@
 "use client";
 
 import { BackgroundCharacterScene } from "@/components/animations/Animated-Character-Scene";
-import { SmoothScrollProvider } from "@/components/animations/Smooth-Scroll";
+import {
+  SmoothScrollProvider,
+  useSmoothScroll,
+} from "@/components/animations/Smooth-Scroll";
 import { CTASection } from "@/components/sections/CTASection";
 import { FeaturesSection } from "@/components/sections/FeaturesSection";
 import { Footer } from "@/components/sections/Footer";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { useScrollProgress } from "@/hooks/useScroll";
 
 function HomeContent() {
-  const scrollProgress = useScrollProgress();
+  const { scrollProgress } = useSmoothScroll();
 
   return (
     <>
