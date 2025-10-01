@@ -8,22 +8,15 @@ import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
-import {
-  FiActivity,
-  FiHome,
-  FiMenu,
-  FiSettings,
-  FiUser,
-  FiX,
-} from "react-icons/fi";
+import { FiHome, FiMenu, FiSettings, FiUser, FiX } from "react-icons/fi";
 import SignoutButton from "../Signout-Button";
 import { ModeToggle } from "../dark-mode/Mode-Toggle";
 
 const navItems = [
   { href: "/dashboard", icon: FiHome, label: "Dashboard" },
-  { href: "/dashboard/workouts", icon: FiActivity, label: "Workouts" },
-  { href: "/dashboard/profile", icon: FiUser, label: "Profile" },
-  { href: "/dashboard/settings", icon: FiSettings, label: "Settings" },
+  // { href: "/workouts", icon: FiActivity, label: "Workouts" },
+  { href: "/profile", icon: FiUser, label: "Profile" },
+  { href: "/settings", icon: FiSettings, label: "Settings" },
 ];
 
 export default function Navbar() {
