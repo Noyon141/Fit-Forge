@@ -120,8 +120,21 @@ const Home = () => {
           </AnimatedFormContainer>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <AnimatedCard className="group border-2 border-black dark:border-stone-50">
-              <div className="p-10">
+            <AnimatedCard className="group border-2 border-black dark:border-stone-50 relative overflow-hidden">
+              {/* Background Image */}
+              <div className="absolute inset-0 opacity-50 group-hover:opacity-70 transition-opacity duration-300">
+                <div className="w-full h-full " />
+                <div className="absolute inset-0">
+                  <Image
+                    src="/assets/workout-plan.png"
+                    alt="Description"
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                </div>
+              </div>
+
+              <div className="relative z-10 p-10">
                 <div className="w-20 h-20 bg-black dark:bg-stone-50 rounded-2xl flex items-center justify-center text-3xl text-stone-50 dark:text-black mb-8">
                   🎯
                 </div>
@@ -136,8 +149,21 @@ const Home = () => {
               </div>
             </AnimatedCard>
 
-            <AnimatedCard className="group border-2 border-black dark:border-stone-50">
-              <div className="p-10">
+            <AnimatedCard className="group border-2 border-black dark:border-stone-50 relative overflow-hidden">
+              {/* Background Image */}
+             <div className="absolute inset-0 opacity-50 group-hover:opacity-70 transition-opacity duration-300">
+                <div className="w-full h-full " />
+                <div className="absolute inset-0">
+                  <Image
+                    src="/assets/progress-tracker.png"
+                    alt="Description"
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                </div>
+              </div>
+
+              <div className="relative z-10 p-10">
                 <div className="w-20 h-20 bg-black dark:bg-stone-50 rounded-2xl flex items-center justify-center text-3xl text-stone-50 dark:text-black mb-8">
                   📊
                 </div>
@@ -151,8 +177,21 @@ const Home = () => {
               </div>
             </AnimatedCard>
 
-            <AnimatedCard className="group border-2 border-black dark:border-stone-50">
-              <div className="p-10">
+            <AnimatedCard className="group border-2 border-black dark:border-stone-50 relative overflow-hidden">
+              {/* Background Image */}
+              <div className="absolute inset-0 opacity-50 group-hover:opacity-70 transition-opacity duration-300">
+                <div className="w-full h-full " />
+                <div className="absolute inset-0">
+                  <Image
+                    src="/assets/coach-account.png"
+                    alt="Description"
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                </div>
+              </div>
+
+              <div className="relative z-10 p-10">
                 <div className="w-20 h-20 bg-black dark:bg-stone-50 rounded-2xl flex items-center justify-center text-3xl text-stone-50 dark:text-black mb-8">
                   👨‍💼
                 </div>
@@ -166,8 +205,21 @@ const Home = () => {
               </div>
             </AnimatedCard>
 
-            <AnimatedCard className="group border-2 border-black dark:border-stone-50">
-              <div className="p-10">
+            <AnimatedCard className="group border-2 border-black dark:border-stone-50 relative overflow-hidden">
+              {/* Background Image */}
+              <div className="absolute inset-0 opacity-50 group-hover:opacity-70 transition-opacity duration-300">
+                <div className="w-full h-full " />
+                <div className="absolute inset-0">
+                  <Image
+                    src="/assets/free-trial.png"
+                    alt="Description"
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                </div>
+              </div>
+
+              <div className="relative z-10 p-10">
                 <div className="w-20 h-20 bg-black dark:bg-stone-50 rounded-2xl flex items-center justify-center text-3xl text-stone-50 dark:text-black mb-8">
                   ⚡
                 </div>
