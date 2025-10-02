@@ -64,7 +64,7 @@ export function FeaturesSection() {
     {
       title: "Fitness in Minutes",
       link: "#free-trial",
-      thumbnail: "/assets/anytime-anywhere.png",
+      thumbnail: "/assets/adaptive-difficulty.png",
       description:
         "Short, high-intensity sessions designed for busy lifestyles—no excuses, only results.",
       emoji: "🚀",
