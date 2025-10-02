@@ -5,6 +5,7 @@ import {
   SmoothScrollProvider,
   useSmoothScroll,
 } from "@/components/animations/Smooth-Scroll";
+import AboutSection from "@/components/sections/About-Section";
 import { CTASection } from "@/components/sections/CTASection";
 import { FeaturesSection } from "@/components/sections/FeaturesSection";
 import { Footer } from "@/components/sections/Footer";
@@ -24,6 +25,9 @@ function HomeContent() {
 
         {/* Features Section */}
         <FeaturesSection />
+
+        {/* About Section */}
+        <AboutSection />
 
         {/* CTA Section */}
         <CTASection />
