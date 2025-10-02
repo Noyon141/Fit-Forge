@@ -22,12 +22,9 @@ export function HeroSection() {
           <AnimatedFormContainer className="max-w-4xl">
             <AnimatedFormItem>
               <div className="relative">
-                <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-black via-gray-800 to-black dark:from-white dark:via-gray-200 dark:to-white bg-clip-text text-transparent leading-tight">
+                <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-black via-zinc-800 to-black dark:from-white dark:via-gray-200 dark:to-white bg-clip-text text-transparent leading-tight pb-2">
                   FitForge
                 </h1>
-                <div className="absolute inset-0 text-6xl md:text-7xl lg:text-8xl font-bold text-black/5 dark:text-white/5 leading-tight">
-                  FitForge
-                </div>
               </div>
             </AnimatedFormItem>
 
@@ -55,7 +52,7 @@ export function HeroSection() {
                   size="lg"
                   className="px-10 py-5 text-xl bg-black/90 dark:bg-white/90 text-white dark:text-black hover:bg-black dark:hover:bg-white border-0 shadow-2xl transition-all duration-300 hover:scale-105"
                 >
-                  <Link href="/onboard">Get Started — $4.99</Link>
+                  <Link href="/sign-up">Get Started — $4.99</Link>
                 </AnimatedButton>
                 <AnimatedButton
                   variant="outline"

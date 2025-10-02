@@ -111,7 +111,7 @@ export default function AboutSection() {
     >
       {/* Section Header */}
       <div className="max-w-7xl mx-auto text-center mb-16">
-        <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-black via-gray-800 to-black dark:from-white dark:via-gray-200 dark:to-white bg-clip-text text-transparent mb-6">
+        <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-black via-gray-800 to-black dark:from-white dark:via-gray-200 dark:to-white bg-clip-text text-transparent mb-6 pb-4">
           About FitForge
         </h2>
         <p className="text-xl md:text-2xl text-black/70 dark:text-white/70 max-w-3xl mx-auto leading-relaxed">
