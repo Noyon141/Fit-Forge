@@ -38,94 +38,61 @@ export function FeaturesSection() {
     },
     // Duplicate for more cards in parallax effect
     {
-      title: "Personalized Workouts",
+      title: "Forge Your Best Self",
       link: "#ai-plans",
-      thumbnail: "/assets/workout-plan.png",
+      thumbnail: "/assets/forged-strength.png",
       description:
-        "Advanced AI algorithms create custom fitness routines based on your preferences, schedule, and fitness history.",
+        "FitForge pushes you to break limits, build discipline, and transform your body and mind.",
       emoji: "🏋️‍♂️",
     },
     {
-      title: "Track Your Progress",
-      link: "#progress-tracker",
-      thumbnail: "/assets/progress-tracker.png",
+      title: "Fuel Your Body Right",
+      link: "#meal-planner",
+      thumbnail: "/assets/meal-planner.png",
       description:
-        "Comprehensive analytics and insights to monitor your fitness achievements and milestone celebrations.",
-      emoji: "📈",
+        "Easy meal prep guidance and nutrition tracking to match your workout intensity and goals.",
+      emoji: "🍎",
     },
     {
-      title: "Professional Coaching",
+      title: "Always the Right Challenge",
       link: "#coach-accounts",
-      thumbnail: "/assets/coach-account.png",
+      thumbnail: "/assets/community.png",
       description:
-        "Connect with certified fitness professionals and access expert guidance throughout your fitness journey.",
+        "Your workouts evolve with you—stay challenged, avoid plateaus, and keep progressing.",
       emoji: "💪",
     },
     {
-      title: "Risk-Free Trial",
+      title: "Fitness in Minutes",
       link: "#free-trial",
-      thumbnail: "/assets/free-trial.png",
+      thumbnail: "/assets/anytime-anywhere.png",
       description:
-        "Experience the full power of FitForge with our commitment-free trial period and easy cancellation.",
+        "Short, high-intensity sessions designed for busy lifestyles—no excuses, only results.",
       emoji: "🚀",
     },
     // Additional duplicates for third row
     {
-      title: "AI Fitness Plans",
+      title: "Never Miss a Workout",
       link: "#ai-plans",
-      thumbnail: "/assets/workout-plan.png",
+      thumbnail: "/assets/calender.png",
       description:
-        "Revolutionary machine learning technology that adapts your workout plans based on real-time performance data.",
+        "Automated calendar sync and push reminders to keep your training consistent and on track.",
       emoji: "🤖",
     },
     {
-      title: "Fitness Analytics",
+      title: "Anytime, Anywhere",
       link: "#progress-tracker",
-      thumbnail: "/assets/progress-tracker.png",
+      thumbnail: "/assets/anytime-anywhere.png",
       description:
-        "Deep dive into your fitness metrics with advanced analytics, trend analysis, and predictive insights.",
+        "Access your workouts on any device—mobile, tablet, or desktop—without missing a beat.",
       emoji: "📱",
     },
     {
-      title: "Expert Guidance",
+      title: "Stronger Together",
       link: "#coach-accounts",
-      thumbnail: "/assets/coach-account.png",
+      thumbnail: "/assets/community.png",
       description:
-        "Access to premium coaching features, form correction, and personalized nutrition recommendations.",
+        "Join a like-minded fitness community—share progress, exchange tips, and celebrate victories.",
       emoji: "🎓",
-    },
-    {
-      title: "Start Today",
-      link: "#free-trial",
-      thumbnail: "/assets/free-trial.png",
-      description:
-        "Begin your transformation immediately with instant access to all features and zero setup required.",
-      emoji: "✨",
-    },
-    // Extra cards for better parallax effect
-    {
-      title: "Smart Training",
-      link: "#ai-plans",
-      thumbnail: "/assets/workout-plan.png",
-      description:
-        "Intelligent workout adaptation that learns from your performance and automatically adjusts difficulty levels.",
-      emoji: "🧠",
-    },
-    {
-      title: "Detailed Insights",
-      link: "#progress-tracker",
-      thumbnail: "/assets/progress-tracker.png",
-      description:
-        "Get comprehensive reports on your fitness journey with detailed breakdowns and achievement tracking.",
-      emoji: "🔍",
-    },
-    {
-      title: "Premium Features",
-      link: "#coach-accounts",
-      thumbnail: "/assets/coach-account.png",
-      description:
-        "Unlock advanced features including meal planning, recovery tracking, and exclusive workout content.",
-      emoji: "⭐",
     },
   ];
 
